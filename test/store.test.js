@@ -11,13 +11,12 @@ describe('Store', () => {
 
     it('saves new person and adds id', () => {
         const results = person.save(newPerson);
-        console.log('new person 1', newPerson);
-        console.log('results', results);
-        assert.deepEqual(results, { name: 'Me', age: 27, _id: newPerson._id });
+        assert.deepEqual(results, { name: 'Me', age: 27, _id: results._id });
     });
     
     it('saves another new person and adds id', () => {
-        assert.deepEqual(person.save(newPerson2), { name: 'You', age: 28, _id: newPerson2._id });
+        const results = person.save(newPerson2);
+        assert.deepEqual(results, { name: 'You', age: 28, _id: results._id });
     });
 
     it('gets new person based on id if exists', () => {
