@@ -1,14 +1,51 @@
 const assert = require('assert');
-const Person = require('../lib/store');
+const Store = require('../lib/store');
 
 describe('Store', () => {
     let person; 
     beforeEach(() => {
-        person = new Person();
+        person = new Store();
+    });
+    const newPerson = { name: 'Me', age: 27 };
+    const newPerson2 = { name: 'You', age: 28 };
+
+    it('saves new person and adds id', () => {
+        const results = person.save(newPerson);
+        console.log('new person 1', newPerson);
+        console.log('results', results);
+        assert.deepEqual(results, { name: 'Me', age: 27, _id: newPerson._id });
+    });
+    
+    it('saves another new person and adds id', () => {
+        assert.deepEqual(person.save(newPerson2), { name: 'You', age: 28, _id: newPerson2._id });
     });
 
-    it('saves new person', () => {
-        const newPerson = { name: 'Me', age: 27 };
-        assert.deepEqual(person.save(newPerson), { name: 'Me', age: 27, id: newPerson.id });
+    it('gets new person based on id if exists', () => {
+        const person1 = person.save(newPerson);
+
+        assert.deepEqual(person.get(person1._id), { name: 'Me', age: 27, _id: person1._id });
+    }),
+
+    it('returns null if no id exists', () => {
+        assert.deepEqual(person.get(12354), null);
+    }),
+
+    it('gets all persons if exists', () => {
+        const person1 = person.save(newPerson);
+        const person2 = person.save(newPerson2);
+
+        assert.deepEqual(person.getAll(), [{ name: 'Me', age: 27, _id: person1._id }, { name: 'You', age: 28, _id: person2._id }]);
+    }),
+
+    it('returns empty array if no persons exist', () => {
+        assert.deepEqual(person.getAll(), []);
+    }),
+
+    it('removes id if id exists', () => {
+        const person1 = person.save(newPerson);
+        assert.deepEqual(person.remove(person1._id), { removed: true });
+    }),
+    it('returns false if id does not exist', () => {
+        assert.deepEqual(person.remove(1234), { removed: false });
     });
 });
