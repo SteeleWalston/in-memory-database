@@ -1,0 +1,34 @@
+{
+  "name": "in-memory-database",
+  "version": "1.0.0",
+  "description": "In Memory Storage",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "npm run mocha",
+    "mocha": "mocha",
+    "start": "npm run mocha -- -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SteeleWalston/in-memory-database.git"
+  },
+  "author": "Steele Walston",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SteeleWalston/in-memory-database/issues"
+  },
+  "homepage": "https://github.com/SteeleWalston/in-memory-database#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "mocha": "^5.0.5"
+  },
+  "dependencies": {
+    "uniqid": "^4.1.1"
+  }
+}
